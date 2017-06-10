@@ -1,0 +1,27 @@
+
+Procedures
+    0.  Server subscribes to "room/+/request/+"
+    1.  All peers subscribe to "room/room_name/response/A"
+    2.  A publishes "create or join" to "room/room_name/request/A"
+    3.  Server increases the number of peers in "room_name"
+    4.  Server publishes "created" to "room/room_name/response/A"
+    5.  A subscribes to "room/room_name/+"
+    6.  B publishes "create_or_join" to "room/room_name/request/B"
+    7.  Server publishes "join" to "room/room_name/peer"
+    8.  Server increases the number of peers in "room_name"
+    9.  Server publishes "joined" to "room/room_name/response/B"
+   10.  B subscribes to "room/room_name/+"
+   11.  C publishes "create_or_join" to "room/room_name/request/C"
+   12.  Server publishes "full" to "room/room_name/response/C"
+   13.  Peer publishes "some content" to "room/room_name/message"
+
+Socket IO
+    1.  Log to a specific client. (emit log)
+    2.  Broadcast a message to every client in the room. (emit message)
+    3.  Keep track of how many clients in a room.
+        3.1 Allow a client to create a room. (emit created)
+        3.2 Allow a client to join a room. (broadcast join, emit joined, broadcast ready)
+        3.3 Inform the client if a room is full.
+
+TODO
+    1.  unroll peers from a room when they exit.

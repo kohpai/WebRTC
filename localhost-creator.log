@@ -1,0 +1,30 @@
+main.js:33 Attempted to create or  join room foo
+main.js:119 Getting user media with constraints Object {video: true}
+bundle.js:8837 [Violation] 'DOMContentLoaded' handler took 168ms
+main.js:57 Message from server: Received request to create or join room foo
+main.js:57 Message from server: Room foo now has 1 client(s)
+main.js:57 Message from server: Client ID eUhu5PYU42wuq5ylAAAB created room foo
+main.js:37 Created room foo
+main.js:106 Adding local stream.
+main.js:63 Client sending message:  got user media
+main.js:128 >>>>>>> maybeStart()  false MediaStream {id: "QyzBfaVBWXiOjpnZZKzNWHZpja4UaSJ72Jip", active: true, onaddtrack: null, onremovetrack: null, onactive: null…} false
+main.js:57 Message from server: Client said:  got user media
+main.js:46 Another peer made a request to join room foo
+main.js:47 This peer is the initiator of room foo!
+main.js:69 Client received message: got user media
+main.js:128 >>>>>>> maybeStart()  false MediaStream {id: "QyzBfaVBWXiOjpnZZKzNWHZpja4UaSJ72Jip", active: true, onaddtrack: null, onremovetrack: null, onactive: null…} true
+main.js:130 >>>>>> creating peer connection
+main.js:153 Created RTCPeerConnnection
+main.js:134 isInitiator true
+main.js:186 Sending offer to peer
+main.js:202 setLocalAndSendMessage sending message RTCSessionDescription {type: "offer", sdp: "v=0↵o=- 2126606268161541812 2 IN IP4 127.0.0.1↵s…0103 label:3c5a873d-1b51-409c-bdab-d80879a8f621↵"}
+main.js:63 Client sending message:  RTCSessionDescription {type: "offer", sdp: "v=0↵o=- 2126606268161541812 2 IN IP4 127.0.0.1↵s…0103 label:3c5a873d-1b51-409c-bdab-d80879a8f621↵"}
+main.js:57 Message from server: Client said:  Object {type: "offer", sdp: "v=0↵o=- 2126606268161541812 2 IN IP4 127.0.0.1↵s…0103 label:3c5a873d-1b51-409c-bdab-d80879a8f621↵"}
+main.js:69 Client received message: Object {type: "answer", sdp: "v=0↵o=- 7298636782792679903 2 IN IP4 127.0.0.1↵s…5645 label:b8e3f73d-9706-45b2-afef-76f12a17c223↵"}
+main.js:69 Client received message: Object {type: "candidate", label: 0, id: "video", candidate: "candidate:2203473661 1 udp 2122260223 192.168.1.41…eration 0 ufrag IaF0 network-id 1 network-cost 10"}
+main.js:162 icecandidate event:  RTCPeerConnectionIceEvent {candidate: RTCIceCandidate, type: "icecandidate", target: RTCPeerConnection, currentTarget: RTCPeerConnection, eventPhase: 2…}
+main.js:63 Client sending message:  Object {type: "candidate", label: 0, id: "video", candidate: "candidate:2203473661 1 udp 2122260223 192.168.1.41…eration 0 ufrag FyQs network-id 1 network-cost 10"}
+main.js:240 Remote stream added.
+main.js:162 icecandidate event:  RTCPeerConnectionIceEvent {candidate: null, type: "icecandidate", target: RTCPeerConnection, currentTarget: RTCPeerConnection, eventPhase: 2…}
+main.js:171 End of candidates.
+main.js:57 Message from server: Client said:  Object {type: "candidate", label: 0, id: "video", candidate: "candidate:2203473661 1 udp 2122260223 192.168.1.41…eration 0 ufrag FyQs network-id 1 network-cost 10"}

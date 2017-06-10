@@ -1,0 +1,25 @@
+main.js:33 Attempted to create or  join room foo
+main.js:119 Getting user media with constraints Object
+main.js:57 Message from server: Received request to create or join room foo
+main.js:57 Message from server: Room foo now has 2 client(s)
+main.js:57 Message from server: Client ID qdI-ekgIBGqZmdMCAAAC joined room foo
+main.js:52 joined: foo
+main.js:106 Adding local stream.
+main.js:63 Client sending message:  got user media
+main.js:57 Message from server: Client said:  got user media
+main.js:69 Client received message: Object
+main.js:128 >>>>>>> maybeStart()  false MediaStream true
+main.js:130 >>>>>> creating peer connection
+main.js:153 Created RTCPeerConnnection
+main.js:134 isInitiator false
+main.js:191 Sending answer to peer.
+main.js:202 setLocalAndSendMessage sending message RTCSessionDescription
+main.js:63 Client sending message:  RTCSessionDescription
+main.js:240 Remote stream added.
+main.js:57 Message from server: Client said:  Object
+main.js:162 icecandidate event:  RTCPeerConnectionIceEvent
+main.js:63 Client sending message:  Object
+main.js:57 Message from server: Client said:  Object
+main.js:162 icecandidate event:  RTCPeerConnectionIceEvent
+main.js:171 End of candidates.
+main.js:69 Client received message: Object
