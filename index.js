@@ -24,31 +24,40 @@ function mqttOnMessage(topic, message) {
     console.log(topic + ': |' + message + '|');
     var subtopics = topic.split('/');
     var room = subtopics[1];
-    var peer = subtopics[3];
 
-    if (message == 'create or join') {
-        log(room, peer, 'Received request to create or join room ' + room);
-        log(room, peer, 'Room ' + room + ' now has ' + numPeers + ' peer(s)');
+    if (subtopics[2] === 'request') {
+        var peer = subtopics[3];
 
-        switch (numPeers) {
-            case 0:
-                ++numPeers;
-                log(room, peer, 'Peer name ' + peer + ' created room ' + room);
-                response(room, peer, 'created');
-                break;
-            case 1:
+        if (message.toString() === 'create or join') {
+            log(room, peer, 'Received request to create or join room ' + room);
+            log(room, peer, 'Room ' + room + ' now has ' + numPeers + ' peer(s)');
+            client.subscribe('room/' + room + '/message');
+
+            if (numPeers > 0) {
                 log('Peer name ' + peer + ' joined room ' + room);
-                broadcast(room, 'join');
                 ++numPeers;
+                // console.log(numPeers);
+                broadcast(room, 'join');
                 response(room, peer, 'joined');
-                // io.sockets.in(room).emit('ready');
-                break;
-            case 2:
-                response(room, peer, 'full');
-                break;
+                    // io.sockets.in(room).emit('ready');
+            } else {
+                log(room, peer, 'Peer name ' + peer + ' created room ' + room);
+                ++numPeers;
+                // console.log(numPeers);
+                response(room, peer, 'created');
+            }
+                // response(room, peer, 'full');
+        }
+    } else if (subtopics[2] === 'message') {
+        var msgObj = JSON.parse(message);
+
+        if (msgObj.msg === 'bye') {
+            --numPeers;
+            log(room, peer, 'Peer name ' + msgObj.peerName + ' leaving room ' + room);
+            log(room, peer, 'Room ' + room + ' now has ' + numPeers + ' peer(s)');
         }
     } else {
-        console.log('some message not matched');
+            console.log('some message not matched');
     }
 }
 
@@ -64,20 +73,3 @@ function log(room, peer, message) {
     message = 'Message from server:' + message;
     client.publish('room/' + room +'/peer/' + peer + '/log', message);
 }
-
-// socket.on('message', function(message) {
-//     log('Client said: ', message);
-//     // for a real app, would be room-only (not broadcast)
-//     socket.broadcast.emit('message', message);
-// });
-
-// socket.on('ipaddr', function() {
-//     var ifaces = os.networkInterfaces();
-//     for (var dev in ifaces) {
-//         ifaces[dev].forEach(function(details) {
-//             if (details.family === 'IPv4' && details.address !== '127.0.0.1') {
-//                 socket.emit('ipaddr', details.address);
-//             }
-//         });
-//     }
-// });

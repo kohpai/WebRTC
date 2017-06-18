@@ -1,20 +1,4 @@
 
-Procedures
-    0.  Server subscribes to "room/+/request/+"
-    1.  All peers subscribe to "room/room_name/response/A"
-    2.  A publishes "create or join" to "room/room_name/request/A"
-    3.  Server increases the number of peers in "room_name"
-    4.  Server publishes "created" to "room/room_name/response/A"
-    5.  A subscribes to "room/room_name/+"
-    6.  B publishes "create_or_join" to "room/room_name/request/B"
-    7.  Server publishes "join" to "room/room_name/peer"
-    8.  Server increases the number of peers in "room_name"
-    9.  Server publishes "joined" to "room/room_name/response/B"
-   10.  B subscribes to "room/room_name/+"
-   11.  C publishes "create_or_join" to "room/room_name/request/C"
-   12.  Server publishes "full" to "room/room_name/response/C"
-   13.  Peer publishes "some content" to "room/room_name/message"
-
 Socket IO
     1.  Log to a specific client. (emit log)
     2.  Broadcast a message to every client in the room. (emit message)
@@ -23,5 +7,87 @@ Socket IO
         3.2 Allow a client to join a room. (broadcast join, emit joined, broadcast ready)
         3.3 Inform the client if a room is full.
 
+MQTT
+2-client Procedures
+    Setup
+        1.  Server subscribes to "room/+/request/+"
+        2.  All peers subscribe to "room/room_name/response/peer_name"
+            and "room/room_name/response/peer_name/log"
+
+    Get Started
+        1.  A publishes "create or join" to "room/room_name/request/A"
+        2.  Server increases the number of peers in "room_name"
+        3.  Server publishes "created" to "room/room_name/response/A"
+        4.  A subscribes to "room/room_name/+"
+        5.  A publishes "got user media" to "room/room_name/message"
+        6.  B publishes "create_or_join" to "room/room_name/request/B"
+        7.  Server publishes "join" to "room/room_name/message"
+        8.  Server increases the number of peers in "room_name"
+        9.  Server publishes "joined" to "room/room_name/response/B"
+       10.  B subscribes to "room/room_name/+"
+       11.  B publishes "got user media" to "room/room_name/message"
+
+    Full
+        1.  C publishes "create_or_join" to "room/room_name/request/C"
+        2.  Server publishes "full" to "room/room_name/response/C"
+        3.  Peer publishes "some content" to "room/room_name/message"
+
+    Negotiation
+        1.  A creates PeerConnection
+            - On ICE candidates, which then will be sent to "room/room_name/message"
+            - On remote stream added
+        2.  A adds stream
+        3.  A creates, sets (local description), and sends offer to "room/room_name/message"
+        4.  B creates PeerConnection and adds stream
+        5.  B sets remote description according to A's offer.
+        6.  B creates, sets (local description) and sends answer to "room/room_name/message"
+        7.  A sets remote description
+        8.  A and B add candidates.
+
+    Leaving Room
+        1.  Peer sends "bye" to "room/room_name/message"
+        2.  Peer disconnect from broker
+
+2-to-4-client Procedures
+    Setup
+        1.  Server subscribes to "room/+/request/+"
+        2.  All peers subscribe to "room/room_name/response/peer_name"
+            and "room/room_name/response/peer_name/log"
+
+    Get Started
+        1.  A publishes "create or join" to "room/room_name/request/A"
+        2.  Server increases the number of peers in "room_name"
+        3.  Server publishes "created" to "room/room_name/response/A"
+        4.  A subscribes to "room/room_name/+"
+        5.  A publishes "got user media" to "room/room_name/message"
+        6.  B publishes "create_or_join" to "room/room_name/request/B"
+        7.  Server publishes "join" to "room/room_name/message"
+        8.  Server increases the number of peers in "room_name"
+        9.  Server publishes "joined" to "room/room_name/response/B"
+       10.  B subscribes to "room/room_name/+"
+       11.  B publishes "got user media" to "room/room_name/message"
+
+    Full
+        1.  C publishes "create_or_join" to "room/room_name/request/C"
+        2.  Server publishes "full" to "room/room_name/response/C"
+        3.  Peer publishes "some content" to "room/room_name/message"
+
+    Negotiation
+        1.  A creates PeerConnection
+            - On ICE candidates, which then will be sent to "room/room_name/message"
+            - On remote stream added
+        2.  A adds stream
+        3.  A creates, sets (local description), and sends offer to "room/room_name/message"
+        4.  B creates PeerConnection and adds stream
+        5.  B sets remote description according to A's offer.
+        6.  B creates, sets (local description) and sends answer to "room/room_name/message"
+        7.  A sets remote description
+        8.  A and B add candidates.
+
+    Leaving Room
+        1.  Peer sends "bye" to "room/room_name/message"
+        2.  Peer disconnect from broker
+
 TODO
-    1.  unroll peers from a room when they exit.
+    1.  Revoke peers from a room when they exit.
+    2.  Create room data structure.
